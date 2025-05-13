@@ -1,11 +1,26 @@
-function LoginForm() {
+import { useState } from "react";
+
+function Login() {
+    const [input, setInput] = useState({
+        username: "",
+        password: ""
+    });
+
+    const handleLoginSubmit = (e) => {
+        e.preventDefault();
+        if (input.username !== "" && input.password !== "") {
+            // call service method to login
+        } else {
+            alert("Please enter a username and password");
+        }
+    }
 
     const handleRegistration = () => {
 
     };
 
     return (
-        <form>
+        <form onSubmit={handleLoginSubmit}>
             <label className="form-label">
                 Username
             </label>
@@ -14,7 +29,7 @@ function LoginForm() {
                 Password
             </label>
             <input type="password" placeholder="Enter password here"></input>
-            <button type="submit" classname="login-button">
+            <button type="submit" className="login-button">
                 Login
             </button>
             <button className="registerButton" onClick={handleRegistration}>
@@ -24,4 +39,4 @@ function LoginForm() {
     );
 }
 
-export default LoginForm;
+export default Login;
