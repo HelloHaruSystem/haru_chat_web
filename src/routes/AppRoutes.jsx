@@ -21,8 +21,15 @@ function AppRoutes() {
 }
 
 const PrivateRoute = ({ children }) => {
-    const user = useAuth();
-    if (!user || !user.token) {
+    const { user, loading } = useAuth();
+
+    if (loading) {
+        return <div>Loading....</div>;
+    }
+
+    // redirect to login if not authenticated
+    // replace to replace the historic of the private route
+    if (!user) {
         return <Navigate to="/" replace />
     }
     return children;

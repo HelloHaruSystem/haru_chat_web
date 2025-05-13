@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [input, setInput] = useState({
@@ -24,7 +24,7 @@ function Login() {
         setError("");
 
         if (input.username !== "" && input.password !== "") {
-            const success = await Login(input.username, input.password);
+            const success = await login(input.username, input.password);
             
             if (success) {
                 navigate("/chat");
@@ -37,7 +37,6 @@ function Login() {
     };
 
     const handleRegistration = () => {
-        setError("");
         console.log("Registration button has been clicked :)")
         setError("Registration function not yet implemented :)")
     };
