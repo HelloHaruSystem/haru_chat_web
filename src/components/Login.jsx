@@ -53,6 +53,7 @@ function Login() {
                 value={input.username}
                 onChange={handleChange}
                 placeholder="Enter username here..."
+                autoComplete="off"
                 ></input>
             <label className="form-label">
                 Password
@@ -63,6 +64,7 @@ function Login() {
                 value={input.password}
                 onChange={handleChange}
                 placeholder="Enter password here..."
+                autoComplete="off"
             ></input>
             <button type="submit" className="login-button">
                 Login

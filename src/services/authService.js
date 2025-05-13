@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.REACT_APP_AUTH_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_AUTH_BASE_URL || "http://localhost:3000/api/auth";;
 
 class authService {
     static async login(username, password) {
@@ -20,7 +20,6 @@ class authService {
                 
                 return null
             }
-
             const data = await response.json();
             console.log("Login successful");
             
