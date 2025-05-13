@@ -1,7 +1,65 @@
+import { createContext, useContext, useEffect, useState } from "react";
+import { UNSAFE_createClientRoutesWithHMRRevalidationOptOut } from "react-router-dom";
+import authService from "../services/authService";
 
-//TODO: implement
+// create context used for authentication
+const AuthContext = createContext(null);
+
+// provider component????
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // check if the user is already authenticated by looking for token in localstorage
+        //TODO: http only cookies
+        if (token && storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+
+        setLoading(false);
+        // empty array here you can set an element if that element changes run this function
+    }, [])
+
+    // login function
+    const login = async (username, password) => {
+        setLoading(true);
+        const response = await authService.login(username, password);
+
+        if (response && response.token) {
+            // use local storage change to http only tokens later
+            localStorage.setItem("authToken", response.token);
+            localStorage.setItem("user", JSON.stringify(response.user));
+            setUser(response.user);
+            setLoading(false);
+            return true;
+        }
+        setLoading(false);
+        return false;
+    };
+
+    // logout function
+    const logout = () => {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("user");
+    };
+
+    const value = {
+        user,
+        login,
+        logout,
+        loading
+    };
+
+   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+
 const useAuth = () => {
-    return null;
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuth must be used within an authProvider");
+    }
+    return context;
 };
 
 export default useAuth;
