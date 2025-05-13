@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Chat from "../pages/Chat";
 import Auth from "../pages/Auth";
+import useAuth from "../hooks/useAuth";
 
 function AppRoutes() {
 
