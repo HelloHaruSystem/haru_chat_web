@@ -106,6 +106,19 @@ input::placeholder, textarea::placeholder {
     display: none;
 }
 
+/* Prevent long words from breaking layouts */
+.text-wrap {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Fix for mobile viewport height issues (e.g., address bar) */
+.full-height {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+}
+
 /* Viewport specific media queries */
 @media (max-width: 992px) {
     .container {
@@ -157,17 +170,4 @@ input::placeholder, textarea::placeholder {
     input[type="submit"] {
         min-height: 44px; /* Apple's recommended minimum touch target size */
     }
-}
-
-/* Prevent long words from breaking layouts */
-.text-wrap {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
-}
-
-/* Fix for mobile viewport height issues (e.g., address bar) */
-.full-height {
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
 }

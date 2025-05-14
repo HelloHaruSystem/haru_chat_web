@@ -40,7 +40,15 @@ function Navbar() {
 
     return (
         <nav className="navbar">
-            <div className="navbar-brand">Haru Chat</div>
+            {user ? (
+                <div className="navbar-brand">
+                    {`Welcome to Haru Chat ${user.username} 👋`}
+                </div>
+            ) : (
+                <div className="navbar-brand">
+                    Haru Chat
+                </div>
+            )}
 
             {/* Mobile menu toggle button */}
             <button
@@ -52,10 +60,12 @@ function Navbar() {
 
             {/* Navigation links */}
             <ul className={menuOpen ? 'open' : ''}>
-                <NavElement 
+                {user && (
+                    <NavElement 
                     value="Home" 
                     href="/" 
-                    isActive={location.pathname === '/'} />
+                    isActive={location.pathname === '/chat'} />
+                )}
                 
                 <NavElement 
                     value="About" 
