@@ -1,9 +1,9 @@
-const API_BASE_URL = import.meta.env.VITE_AUTH_BASE_URL || "http://localhost:3000/api/auth";
+const API_BASE_URL = import.meta.env.VITE_AUTH_BASE_URL;
 
 class authService {
     static async login(username, password) {
         try {
-            const response = await fetch(API_BASE_URL, {
+            const response = await fetch(`${API_BASE_URL}/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

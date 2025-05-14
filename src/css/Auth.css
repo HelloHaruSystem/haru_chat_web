@@ -1,11 +1,13 @@
 .auth-container {
     display: flex;
     justify-content: center; /* Horizontal center */
-    align-items: center; /* vertical center */
+    align-items: flex-start; /* alight to top */
     margin: auto;
-    width: 20%;
-    align-items: center; /* vertical center */
+    width: 100%;
+    height: 100vh; /* full viewport/ make it not be so low on the screen*/
     background-color: #1a1a2e;
+    padding: 15px;
+    padding-top: 10vh; 
 }
 
 .form-container {
@@ -13,16 +15,48 @@
     border-radius: 15px;
     border: 1px solid #0f3460;
     padding: 30px;
-    width: 350px;
+    width: 100%;
+    max-width: 400px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
 
-/* Add title styling if you want to add a heading to your Auth component */
+
 .auth-title {
     color: white;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 24px;
     text-align: center;
     margin-bottom: 20px;
-    text-shadow: 0 0 1px #e94560; /* Subtle text shadow with accent color */
+    text-shadow: 0 0 1px #e94560; 
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+    .auth-container {
+        padding-top: 8vh; /* less top padding on medium screens */
+    }
+    
+    .form-container {
+        padding: 20px; /* smaller padding on medium screens */
+    }
+    
+    .auth-title {
+        font-size: 22px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .auth-container {
+        padding-top: 5vh; /* Even less top padding on small screens */
+    }
+    
+    .form-container {
+        padding: 15px; /* Even smaller padding on mobile */
+        max-width: 90%; /* Allow more width on very small screens */
+    }
+    
+    .auth-title {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
 }

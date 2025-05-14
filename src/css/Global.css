@@ -1,4 +1,4 @@
-/* Global.css - Application-wide styles */
+/* Global.css - Enhanced with responsive utilities */
 
 /* Reset default browser styling */
 * {
@@ -13,10 +13,18 @@ body, html {
     font-family: 'Segoe UI', Arial, sans-serif;
     background-color: #1a1a2e; /* Dark blue background */
     color: white;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Make images and videos responsive */
+img, video {
+    max-width: 100%;
+    height: auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
     color: white;
+    line-height: 1.2; /* Improve readability */
 }
 
 a {
@@ -45,6 +53,7 @@ a:hover {
 /* Common elements styling */
 button {
     cursor: pointer;
+    touch-action: manipulation; /* Improve touch experience */
 }
 
 input, textarea, select {
@@ -52,6 +61,8 @@ input, textarea, select {
     color: white;
     border: 1px solid #e94560;
     outline: none;
+    width: 100%; /* Make form elements full width by default */
+    font-size: 16px; /* Prevent auto-zoom on iOS */
 }
 
 input::placeholder, textarea::placeholder {
@@ -71,4 +82,92 @@ input::placeholder, textarea::placeholder {
     --error: #ff4757; /* For error messages */
     --success: #2ed573; /* For success messages */
     --online: #2ed573; /* Green for online status */
+}
+
+/* Responsive container classes */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.container-fluid {
+    width: 100%;
+    padding: 0 15px;
+}
+
+/* Responsive utilities */
+.hidden-mobile {
+    display: block;
+}
+
+.visible-mobile {
+    display: none;
+}
+
+/* Viewport specific media queries */
+@media (max-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+    
+    /* Typography adjustments for medium screens */
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+    
+    /* Typography adjustments for small screens */
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+    }
+    
+    /* Toggle visibility classes */
+    .hidden-mobile {
+        display: none;
+    }
+    
+    .visible-mobile {
+        display: block;
+    }
+    
+    /* Improve touch targets on mobile */
+    button, 
+    input[type="button"], 
+    input[type="submit"] {
+        min-height: 44px; /* Apple's recommended minimum touch target size */
+    }
+}
+
+/* Prevent long words from breaking layouts */
+.text-wrap {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Fix for mobile viewport height issues (e.g., address bar) */
+.full-height {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 }

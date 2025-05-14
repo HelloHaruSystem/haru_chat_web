@@ -11,18 +11,19 @@ body {
     flex-direction: column;
     padding: 20px;
     gap: 15px;
-    /*width: 100%;*/
+    width: 100%;
 }
 
 .error-message {
     color: #ff4757; /* Red for error messages */
     font-size: 12px;
-    padding: 5px;
+    padding: 8px, 10px;
     margin-bottom: 10px;
     background-color: rgba(255, 71, 87, 0.1);
     border-radius: 4px;
     width: 100%;
     text-align: center;
+    word-wrap: break-word; /* Handle long error messages */
 }
 
 .form-label {
@@ -30,6 +31,7 @@ body {
     color: white;
     margin-bottom: 5px;
     font-size: 14px;
+    width: 100%;
 }
 
 .input-field {
@@ -37,9 +39,9 @@ body {
     color: white;
     border: 1px solid #e94560;
     border-radius: 5px;
-    padding: 8px 12px;
+    padding: 12px;
     width: 100%;
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 15px;
     outline: none; /* Remove default focus outline */
 }
@@ -50,7 +52,7 @@ body {
 }
 
 .input-field::placeholder {
-    color: rgba(255, 255, 255, 0.5); /* Semi-transparent white for placeholder */
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .button-container {
@@ -69,10 +71,13 @@ body {
     border-radius: 20px;
     padding: 8px 20px;
     font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.2s;
     min-width: 80px;
+    flex: 1;
+    max-width: 150px;
 }
 
 .button:hover {
@@ -87,4 +92,29 @@ body {
 
 .button:nth-child(2):hover {
     background-color: #1a1a2e;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 480px) {
+    .login-form {
+        padding: 10px; /* Less padding on small screens */
+        gap: 10px;
+    }
+    
+    .button-container {
+        flex-direction: column; /* Stack buttons on very small screens */
+        gap: 10px;
+    }
+    
+    .button {
+        max-width: 100%; /* Full width buttons on mobile */
+        width: 100%;
+    }
+}
+
+/* Fix for iOS devices - prevent zoom on input focus */
+@media screen and (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px; /* Minimum font size to prevent zoom on iOS */
+    }
 }
