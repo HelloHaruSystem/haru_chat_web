@@ -1,0 +1,124 @@
+.navbar {
+    background-color: #16213e;
+    border-bottom: 1px solid #0f3460;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 0.8rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: white;
+    margin-right: auto;
+    text-shadow: 0 0 1px #e94560;
+}
+
+.nav-li {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-button {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.nav-button:hover {
+    background-color: rgba(233, 69, 96, 0.1);
+    color: #ff6b81;
+}
+
+.nav-button.active {
+    background-color: #e94560;
+    color: white;
+}
+
+/* Logout button should stand out */
+.nav-button.logout {
+    border: 1px solid #e94560;
+}
+
+.nav-button.logout:hover {
+    background-color: #e94560;
+    color: white;
+}
+
+/* Hamburger menu button (hidden on desktop) */
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 0.6rem 1rem;
+    }
+    
+    .navbar-toggle {
+        display: block;
+        margin-left: auto;
+    }
+    
+    .navbar ul {
+        position: absolute;
+        flex-direction: column;
+        background-color: #16213e;
+        top: 100%; /* Position right below the navbar */
+        right: 0;
+        left: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 0;
+        margin: 0;
+        align-items: stretch; /* Make items full width */
+    }
+    
+    .navbar ul.open {
+        max-height: 300px; /* Adjust as needed */
+        padding: 0.5rem 0;
+    }
+    
+    .nav-li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-button {
+        display: block;
+        padding: 0.75rem 1rem;
+        width: 100%;
+        border-radius: 0; /* Remove border radius on mobile */
+    }
+    
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+}
