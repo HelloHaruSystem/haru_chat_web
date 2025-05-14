@@ -1,13 +1,28 @@
 .auth-container {
     display: flex;
     justify-content: center; /* Horizontal center */
+    align-items: center; /* vertical center */
     margin: auto;
     width: 20%;
     align-items: center; /* vertical center */
-    border-style: solid;
-    border-color: red;
+    background-color: #1a1a2e;
 }
 
 .form-container {
+    background-color: #16213e; /* Darker blue for container from JavaFX */
+    border-radius: 15px;
+    border: 1px solid #0f3460;
+    padding: 30px;
+    width: 350px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
 
+/* Add title styling if you want to add a heading to your Auth component */
+.auth-title {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 1px #e94560; /* Subtle text shadow with accent color */
 }

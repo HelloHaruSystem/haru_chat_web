@@ -1,0 +1,74 @@
+/* Global.css - Application-wide styles */
+
+/* Reset default browser styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #1a1a2e; /* Dark blue background */
+    color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: white;
+}
+
+a {
+    color: #e94560; /* Pink/red accent color for links */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ff6b81; /* Lighter accent on hover */
+    text-decoration: underline;
+}
+
+/* Common utility classes */
+.text-error {
+    color: #ff4757; /* Red for error messages */
+}
+
+.text-success {
+    color: #2ed573; /* Green for success messages */
+}
+
+.text-muted {
+    color: rgba(255, 255, 255, 0.6); /* Semi-transparent white for less important text */
+}
+
+/* Common elements styling */
+button {
+    cursor: pointer;
+}
+
+input, textarea, select {
+    background-color: #0f3460;
+    color: white;
+    border: 1px solid #e94560;
+    outline: none;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Define color variables for use throughout the application */
+:root {
+    --primary-bg: #1a1a2e; /* Dark blue background */
+    --secondary-bg: #16213e; /* Darker blue for containers */
+    --input-bg: #0f3460; /* Dark blue for input fields */
+    --accent: #e94560; /* Pink/red accent color */
+    --accent-hover: #ff6b81; /* Lighter accent for hover states */
+    --text-primary: #ffffff; /* White for main text */
+    --text-secondary: #e0e0e0; /* Light grey for secondary text */
+    --text-muted: rgba(255, 255, 255, 0.6); /* For timestamps, etc. */
+    --error: #ff4757; /* For error messages */
+    --success: #2ed573; /* For success messages */
+    --online: #2ed573; /* Green for online status */
+}

@@ -12,6 +12,7 @@ function Auth() {
     ) : (
         <div className="auth-container">
             <div className="form-container">
+                <h2 className="auth-title">Welcome to Haru Chat!</h2>
                 <Login />
             </div>
         </div>
