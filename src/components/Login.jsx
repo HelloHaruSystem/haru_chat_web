@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import '../css/Login.css';
 
 function Login() {
     const [input, setInput] = useState({
@@ -42,7 +43,7 @@ function Login() {
     };
 
     return (
-        <form onSubmit={handleLoginSubmit}>
+        <form onSubmit={handleLoginSubmit} className="login-form">
             {error && <div className="error-message">{error}</div>}
             <label className="form-label">
                 Username
@@ -50,6 +51,7 @@ function Login() {
             <input 
                 type="text" 
                 name="username"
+                className="input-field"
                 value={input.username}
                 onChange={handleChange}
                 placeholder="Enter username here..."
@@ -61,17 +63,20 @@ function Login() {
             <input 
                 type="password"
                 name="password"
+                className="input-field"
                 value={input.password}
                 onChange={handleChange}
                 placeholder="Enter password here..."
                 autoComplete="off"
             ></input>
-            <button type="submit" className="login-button">
-                Login
-            </button>
-            <button className="registerButton" onClick={handleRegistration}>
-                Register
-            </button>
+            <div className="button-container">
+                <button type="submit" className="button">
+                    Login
+                </button>
+                <button className="button" onClick={handleRegistration}>
+                    Register
+                </button>
+            </div>
         </form>
     );
 }

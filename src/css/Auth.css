@@ -1,0 +1,13 @@
+.auth-container {
+    display: flex;
+    justify-content: center; /* Horizontal center */
+    margin: auto;
+    width: 20%;
+    align-items: center; /* vertical center */
+    border-style: solid;
+    border-color: red;
+}
+
+.form-container {
+
+}
