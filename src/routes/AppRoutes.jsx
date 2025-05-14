@@ -27,6 +27,7 @@ function AppRoutes() {
     );
 }
 
+// TODO: move to components
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
 

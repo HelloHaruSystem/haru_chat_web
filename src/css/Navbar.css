@@ -57,7 +57,10 @@
 
 /* Logout button should stand out */
 .nav-button.logout {
+    background-color: transparent;
+    color: #e94560;
     border: 1px solid #e94560;
+    transition: all 0.2s ease;
 }
 
 .nav-button.logout:hover {

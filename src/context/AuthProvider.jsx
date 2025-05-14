@@ -42,6 +42,7 @@ const AuthProvider = ({ children }) => {
     };
 
     // logout function
+    //TODO: remove token on auth server as well by sending a rest request
     const logout = () => {
         localStorage.removeItem("authToken");
         localStorage.removeItem("user");

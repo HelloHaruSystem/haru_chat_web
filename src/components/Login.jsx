@@ -73,7 +73,7 @@ function Login() {
                 <button type="submit" className="button">
                     Login
                 </button>
-                <button className="button" onClick={handleRegistration}>
+                <button className="button" type="button" onClick={handleRegistration}>
                     Register
                 </button>
             </div>
