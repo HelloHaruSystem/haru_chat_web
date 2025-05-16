@@ -146,6 +146,9 @@ function MessageList({ messages, messageListRef, formatTime }) {
                             {!message.isFromCurrentUser && message.sender !== 'System' && (
                                 <div className="sender-name">{message.sender}</div>
                             )}
+                            {message.sender === 'System' && (
+                                <div className="sender-name">System:</div>
+                            )}
                             <div className="sender-content">{message.content}</div>
                             <div className="message-time">{formatTime(message.timestamp)}</div>
                         </div>
