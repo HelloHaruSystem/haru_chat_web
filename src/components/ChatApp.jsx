@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-
+import useAuth from "../hooks/useAuth";
 import '../css/ChatApp.css'
 
 function ChatApp () {
@@ -8,6 +8,7 @@ function ChatApp () {
     const [isSidebarExpanded, setIsSideBarExpanded] = useState(true);
     const [activeUsers, setActiveUsers] = useState([]);
     const messageListRef = useRef(null);
+    const { user } = useAuth();
 
     // auto scroll to bottom when a new message is received
     useEffect(() => {
@@ -27,7 +28,7 @@ function ChatApp () {
         if (messageInput.trim() === '') return;
 
         const newMessage = {
-            sender: 'Admin', //TODO: get from authContext
+            sender: user ? user.username : 'Anonymous',
             content: messageInput,
             timestamp: new Date(),
             isFromCurrentUser: true
@@ -70,17 +71,19 @@ function ChatApp () {
                     activeUsers={activeUsers}
                     toggleSidebar={toggleSideBar}
                 />
-                <MessageList 
-                    messages={messages}
-                    messageListRef={messageListRef}
-                    formatTime={formatTime}
-                />
-                <InputArea
-                    handleSendMessage={handleSendMessage}
-                    messageInput={messageInput}
-                    setMessageInput={setMessageInput}
-                    handleKeyPress={handleKeyPress}
-                />
+                <div className="message-list-container">
+                    <MessageList 
+                        messages={messages}
+                        messageListRef={messageListRef}
+                        formatTime={formatTime}
+                    />
+                    <InputArea
+                        handleSendMessage={handleSendMessage}
+                        messageInput={messageInput}
+                        setMessageInput={setMessageInput}
+                        handleKeyPress={handleKeyPress}
+                    />
+                </div>
             </div>
         </div>
     );
