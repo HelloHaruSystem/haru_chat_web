@@ -1,15 +1,52 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function ChatApp () {
+    const [messages, setMessages] = useState([]);
+    const [messageInput, setMessageInput] = useState('');
     const [isSidebarExpanded, setIsSideBarExpanded] = useState(true);
     const [activeUsers, setActiveUsers] = useState([]);
+    const messageListRef = useRef(null);
+
+    // auto scroll to bottom when a new message is received
+    useEffect(() => {
+        if (messageListRef.current) {
+            scrollToBottom();
+        }
+    }, [messages]);
+
+    const scrollToBottom = () => {
+        if (messageListRef.current) {
+            messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+        }
+    };
+
+    const handleSendMessage = (e) => {
+        e.preventDefault();
+        if (messageInput.trim() === '') return;
+
+        const newMessage = {
+            sender: 'Admin', //TODO: get from authContext
+            content: messageInput,
+            timestamp: new Date(),
+            isFromCurrentUser: true
+        };
+
+        setMessages([...messages, newMessage]);
+        setMessageInput('');
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            handleSendMessage(e);
+        }
+    };
 
     const toggleSideBar = () => {
         setIsSideBarExpanded(!isSidebarExpanded);
     };
 
     const clearChat = () => {
-        setMessage([{
+        setMessages([{
             sender: 'System',
             content: 'Message history cleared.',
             timestamp: new Date(),
@@ -23,10 +60,25 @@ function ChatApp () {
 
     return (
         <div className="chat-container">
-            <TopBar onClick={clearChat} />
+            <TopBar clearChat={clearChat} />
 
             <div className="chat-main">
-
+                <UserListSideBar 
+                    isSidebarExpanded={isSidebarExpanded}
+                    activeUsers={activeUsers}
+                    toggleSidebar={toggleSideBar}
+                />
+                <MessageList 
+                    messages={messages}
+                    messageListRef={messageListRef}
+                    formatTime={formatTime}
+                />
+                <InputArea
+                    handleSendMessage={handleSendMessage}
+                    messageInput={messageInput}
+                    setMessageInput={setMessageInput}
+                    handleKeyPress={handleKeyPress}
+                />
             </div>
         </div>
     );
@@ -47,7 +99,7 @@ function TopBar({ clearChat }) {
     );
 }
 
-function userListSideBar({ isSidebarExpanded, activeUsers, toggleSidebar }) {
+function UserListSideBar({ isSidebarExpanded, activeUsers, toggleSidebar }) {
 
     return (
         <div className={`user-list-sidebar ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>
@@ -72,6 +124,47 @@ function userListSideBar({ isSidebarExpanded, activeUsers, toggleSidebar }) {
                     {isSidebarExpanded ? '◀' : '▶'}
                 </button>
         </div>
+    );
+}
+
+function MessageList({ messages, messageListRef, formatTime }) {
+
+    return (
+        <div className="message-list-container">
+            <div className="message-list" ref={messageListRef}>
+                {messages.map((message, index) => (
+                    <div
+                        key={index}
+                        className={`message-container ${message.isFromCurrentUser ? 'current-user' : ''}`}
+                    >
+                        <div className={`message-bubble ${message.isFromCurrentUser ? 'current-user-bubble' : message.sender === 'System' ? 'system-message' : 'other-user-bubble'}`}>
+                            {!message.isFromCurrentUser && message.sender !== 'System' && (
+                                <div className="sender-name">{message.sender}</div>
+                            )}
+                            <div className="sender-content">{message.content}</div>
+                            <div className="message-time">{formatTime(message.timestamp)}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function InputArea({ handleSendMessage, messageInput, setMessageInput, handleKeyPress,}) {
+
+    return (
+        <form className="input-area" onSubmit={handleSendMessage}>
+            <input
+                type="text"
+                className="message-input"
+                placeholder="Type message here"
+                value={messageInput}
+                onChange={(e) => setMessageInput(e.target.value)}
+                onKeyDown={handleKeyPress}>
+            </input>
+            <button type="submit" className="send-button">Send</button>
+        </form>
     );
 }
 
