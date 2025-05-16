@@ -166,7 +166,7 @@ function InputArea({ handleSendMessage, messageInput, setMessageInput, handleKey
             <input
                 type="text"
                 className="message-input"
-                placeholder="Type message here"
+                placeholder="Type message here..."
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
                 onKeyDown={handleKeyPress}>
