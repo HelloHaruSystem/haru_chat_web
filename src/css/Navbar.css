@@ -59,7 +59,7 @@
 .nav-button.logout {
     background-color: transparent;
     color: #e94560;
-    border: 1px solid #e94560;
+    border: 2px solid #e94560;
     transition: all 0.2s ease;
 }
 

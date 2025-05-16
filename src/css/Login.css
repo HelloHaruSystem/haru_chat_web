@@ -87,7 +87,7 @@ body {
 /* Style for the second button (Register) */
 .button:nth-child(2) {
     background-color: #0f3460; 
-    border: 1px solid #e94560; 
+    border: 2px solid #e94560; 
 }
 
 .button:nth-child(2):hover {
