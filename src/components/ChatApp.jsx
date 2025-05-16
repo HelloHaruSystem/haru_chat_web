@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+import '../css/ChatApp.css'
+
 function ChatApp () {
     const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState('');
