@@ -48,7 +48,6 @@ class WebSocketService {
                         this.notifyConnectionHandlers(message);
                     } catch (error) {
                         console.error('Error parsing message;', error);
-                        throw error;
                     }
                 };
 
@@ -77,5 +76,78 @@ class WebSocketService {
                 reject(error);
             }
         });
+    }
+    // authenticate with the server
+    authenticate(username, token) {
+        const authMessage = `${username},${token}`;
+        console.log('Sending authentication: ', `${username},token...`);
+        this._socket.send(authMessage);
+    }
+
+    // send a chat message
+    sendMessage(content) {
+        if (this._socket && this._socket.readyState === WebSocket.OPEN) {
+            this._socket.send(content);
+            return true;
+        } else {
+            console.error('Websocket is not connected');
+            return false;
+        }
+    }
+
+    disconnect() {
+        if (this._socket) {
+            console.log('Disconnecting WebSocket...');
+            this._socket.close(1000, 'User disconnected');
+            this._socket = null;
+        }
+    }
+
+    // parse incoming messages
+    parseMessage(rawMessage) {
+        console.log('Received message: ', rawMessage);
+
+        // handle authentication messages
+        if (rawMessage.includes('Authentication Authentication successful')) {
+            return {
+                type: 'system',
+                content: rawMessage,
+                sender: 'System',
+                timestamp: new Date()
+            };
+        }
+
+        // handle join/leave messages
+        if (rawMessage.includes(' has joined the chat') || rawMessage.includes(' has left the chat')) {
+            return {
+                type: 'system',
+                content: rawMessage,
+                sender: 'System',
+                timestamp: new Date()
+            };
+        }
+
+        // handle regular chat messages format: username: message
+        const colonIndex = rawMessage.indexOf(': ');
+        if (colonIndex > 0) {
+            const sender = rawMessage.substring(0, colonIndex);
+            const content = rawMessage.substring(colonIndex + 2);
+
+            return {
+                type: 'chat',
+                content: content,
+                sender: sender,
+                timestamp: new Date(),
+                isFromCurrentUser: false
+            };
+        }
+
+        // handle system or other message formats
+        return {
+            type: 'system',
+            content: rawMessage,
+            sender: 'System',
+            timestamp: new Date()
+        };
     }
 }
