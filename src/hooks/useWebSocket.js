@@ -9,6 +9,7 @@ const useWebSocket = () => {
     const [activeUsers, setActiveUsers] = useState([]);
     const messageHandlerRef = useRef(null);
     const connectionHandlerRef = useRef(null);
+    const [error, setError] = useState(null);
 
     // WebSocket Server config
     const WS_SERVER_URL = import.meta.env.VITE_WS_SERVER_URL;
@@ -68,10 +69,12 @@ const useWebSocket = () => {
 
         try {  
             setConnectionStatus('connecting');
+            setError(null);
             await webSocketService.connect(WS_SERVER_URL, user.username, token);
         } catch (error) {
             console.error('Failed to connect to WebSocket: ', error);
             setConnectionStatus('disconnected');
+            setError('Unable to connect to chat server.');
             return false;
         }
     }, [user, WS_SERVER_URL]);
@@ -167,7 +170,8 @@ const useWebSocket = () => {
         disconnect,
         sendMessage,
         clearMessages,
-        isConnected: connectionStatus === 'connected'
+        isConnected: connectionStatus === 'connected',
+        error
     };
 };
 
