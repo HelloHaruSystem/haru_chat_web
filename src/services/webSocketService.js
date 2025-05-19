@@ -47,7 +47,7 @@ class WebSocketService {
                         const message = this.parseMessage(event.data);
                         this.notifyConnectionHandlers(message);
                     } catch (error) {
-                        console.error('Error parsing message;', error);
+                        console.error('Error parsing message:', error);
                     }
                 };
 
@@ -150,4 +150,78 @@ class WebSocketService {
             timestamp: new Date()
         };
     }
+
+    attemptReconnect(serverUrl, username, token) {
+        this._reconnectAttempts++;
+        console.log(`Attempting to reconnect... (${this._reconnectAttempts}/${this._maxReconnectAttempts})`);
+
+        setTimeout(() => {
+            this.connect(serverUrl, username, token).catch((error) => {
+                console.error('Reconnection failed: ', error);
+            });
+        }, this._reconnectDelay * this._reconnectAttempts);
+    }
+
+    // add message handler
+    addMessageHandler(handler) {
+        this._messageHandlers.push(handler);
+    }
+
+    // remove message handler
+    removeMessageHandler(handler) {
+        const index = this._messageHandlers.indexOf(handler);
+        if (index > -1) {
+            this._messageHandlers.splice(index, 1);
+        }
+    }
+
+    // add connection handler
+    addConnectionHandler(handler) {
+        this._connectionHandlers.push(handler);
+    }
+
+    // remove connection handler
+    removeConnectionHandler(handler) {
+        const index = this._connectionHandlers.indexOf(handler);
+        if (index > -1) {
+            this._connectionHandlers.splice(index, 1);
+        }
+    }
+
+    // notify all message handlers
+    notifyConnectionHandlers(message) {
+        this._messageHandlers.forEach(handler => {
+            try {
+                handler(message);
+            } catch (error) {
+                console.error('Error in message handler: ', error);
+            }
+        });
+    }
+
+    // get connection status 
+    getConnectionStatus() {
+        if (!this._socket) return 'disconnected';
+
+        switch (this._socket.readyState) {
+            case WebSocket.CONNECTING:
+                return 'connecting';
+            case WebSocket.OPEN:
+                return 'connect';
+            case WebSocket.CLOSING:
+                return 'closing';
+            case WebSocket.CLOSED:
+                return 'disconnected';
+            default:
+                return 'unknown';
+        }
+    }
+
+    // check if connected
+    isConnected() {
+        return this._socket && this._socket.readyState === WebSocket.OPEN;
+    }
 }
+
+// export the WebSocketService as a singleton
+export default new WebSocketService();
