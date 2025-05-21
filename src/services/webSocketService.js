@@ -121,7 +121,7 @@ class WebSocketService {
     // authenticate with the server
     authenticate(username, token) {
         const authMessage = `${username},${token}`;
-        console.log(`Sending authentication: ${username},***`);
+        console.log(`Sending authentication: ${username},secret`);
         this._socket.send(authMessage);
     }
 
